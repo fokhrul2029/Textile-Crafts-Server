@@ -35,7 +35,7 @@ async function run() {
 
     app.get("/all-data", async (req, res) => {
       const cursor = single_items.find();
-      const result = await cursor.toArray();
+      const result = (await cursor.toArray()).reverse();
       res.send(result);
     });
 
