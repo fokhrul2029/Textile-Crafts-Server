@@ -55,6 +55,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/categories-data/:id", async (req, res) => {
+      const id = req.params.id
+      const cursor = categories_data.find({_id: new ObjectId(id)});
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.post("/", async (req, res) => {
       const item = req.body;
       const docs = [
