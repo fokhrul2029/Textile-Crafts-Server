@@ -31,11 +31,20 @@ async function run() {
     });
 
     const database = client.db("TextileCrafts-Assignment-10");
-    const single_items = database.collection("all_items");
+
+    const all_items = database.collection("all_items");
 
     app.get("/all-data", async (req, res) => {
-      const cursor = single_items.find();
+      const cursor = all_items.find();
       const result = (await cursor.toArray()).reverse();
+      res.send(result);
+    });
+
+    const categories_data = database.collection("Categories_items");
+
+    app.get("/categories-data", async (req, res) => {
+      const cursor = categories_data.find();
+      const result = await cursor.toArray();
       res.send(result);
     });
 
