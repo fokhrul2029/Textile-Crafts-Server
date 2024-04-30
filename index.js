@@ -56,8 +56,8 @@ async function run() {
     });
 
     app.get("/categories-data/:id", async (req, res) => {
-      const id = req.params.id
-      const cursor = categories_data.find({_id: new ObjectId(id)});
+      const id = req.params.id;
+      const cursor = categories_data.find({ _id: new ObjectId(id) });
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -81,7 +81,14 @@ async function run() {
           stockStatus: item.stockStatus,
         },
       ];
-      const result = await single_items.insertMany(docs);
+      const result = await all_items.insertMany(docs);
+      res.send(result);
+    });
+
+    app.delete("/categories-data/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await all_items.deleteOne(query);
       res.send(result);
     });
 
